@@ -1,0 +1,334 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #ffffff;
+  color: #111111;
+  font-family: 'Fraunces', Georgia, serif;
+  min-height: 100vh;
+}
+
+/* Header */
+.site-header {
+  background-color: #2A3D44;
+  border-bottom: none;
+  padding: 12px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.site-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.site-logo img {
+  height: 135px;
+  width: auto;
+}
+
+/* Hamburger */
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: #fff;
+  margin: 5px 0;
+  transition: 0.3s;
+}
+
+/* Navigation */
+.nav-menu {
+  display: flex;
+  list-style: none;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.nav-menu a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  transition: background 0.2s, color 0.2s;
+}
+
+.nav-menu a:hover,
+.nav-menu a.active {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+/* Main content */
+.main-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+/* Home page */
+.hero {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.hero-logo-wrapper {
+  display: inline-block;
+  background-color: #2A3D44;
+  padding: 12px 20px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+}
+
+.hero-logo {
+  max-width: 420px;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  color: #666;
+  font-style: italic;
+}
+
+/* Card grid */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background-color: #f5f5f5;
+  border-radius: 12px;
+  overflow: hidden;
+  text-decoration: none;
+  color: #111;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: 1px solid #e8e8e8;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.card-image {
+  width: 100%;
+  aspect-ratio: 1;
+  background-color: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-image .placeholder {
+  width: 100%;
+  height: 100%;
+  background-color: #222;
+}
+
+.card-label {
+  padding: 16px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Content pages */
+.page-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.page-header h1 {
+  font-size: 2rem;
+  margin-bottom: 8px;
+  color: #111;
+}
+
+.page-header p {
+  color: #888;
+  font-size: 0.95rem;
+}
+
+.tweets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 24px;
+  justify-items: center;
+}
+
+.tweet-wrapper {
+  width: 100%;
+  max-width: 550px;
+  background: #f8f8f8;
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid #e8e8e8;
+}
+
+/* Tweet count */
+.tweet-count {
+  font-size: 1.1rem;
+  color: #2A3D44;
+  font-weight: 600;
+}
+
+/* Show More */
+.show-more-container {
+  text-align: center;
+  margin-top: 32px;
+}
+
+.show-more-btn {
+  background-color: #2A3D44;
+  color: #fff;
+  border: none;
+  padding: 14px 48px;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.show-more-btn:hover {
+  opacity: 0.85;
+}
+
+/* Back link */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #888;
+  text-decoration: none;
+  margin-bottom: 24px;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.back-link:hover {
+  color: #111;
+}
+
+/* Footer */
+.site-footer {
+  text-align: center;
+  padding: 32px 24px;
+  color: #999;
+  font-size: 0.85rem;
+  border-top: 1px solid #e8e8e8;
+  margin-top: 60px;
+}
+
+.social-links {
+  margin-top: 12px;
+}
+
+.social-links a {
+  color: #666;
+  text-decoration: none;
+  margin: 0 8px;
+  transition: color 0.2s;
+}
+
+.social-links a:hover {
+  color: #111;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .nav-menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background: #2A3D44;
+    padding: 16px;
+    border-bottom: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .nav-menu.open {
+    display: flex;
+  }
+
+  .nav-menu a {
+    padding: 12px 16px;
+    font-size: 1rem;
+  }
+
+  .hero-logo {
+    max-width: 260px;
+  }
+
+  .hero-logo-wrapper {
+    padding: 10px 16px;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .card-label {
+    font-size: 0.85rem;
+    padding: 12px;
+  }
+
+  .tweets-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .main-content {
+    padding: 24px 16px;
+  }
+}
+
+@media (max-width: 400px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+}
