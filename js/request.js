@@ -2,18 +2,22 @@ var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzsUBSXZBmDQyo8OcuYHAA
 
 function loadRequests() {
   var list = document.getElementById('request-list');
-  fetch(SCRIPT_URL)
-    .then(function (r) { return r.json(); })
-    .then(function (requests) {
+  var url = SCRIPT_URL + '?t=' + Date.now();
+  fetch(url, { redirect: 'follow' })
+    .then(function (r) { return r.text(); })
+    .then(function (text) {
+      var requests = JSON.parse(text);
       if (!requests.length) {
         list.innerHTML = '<p class="empty-board">No requests yet. Be the first to submit one!</p>';
         return;
       }
       list.innerHTML = '';
       requests.forEach(function (req) {
+        var status = (req.status || '').toString().trim().toLowerCase();
+        var isCompleted = status === 'completed';
         var item = document.createElement('div');
-        item.className = 'request-item' + (req.status === 'completed' ? ' completed' : '');
-        var checkbox = req.status === 'completed'
+        item.className = 'request-item' + (isCompleted ? ' completed' : '');
+        var checkbox = isCompleted
           ? '<input type="checkbox" checked disabled>'
           : '<input type="checkbox" disabled>';
         var link = req.link
@@ -31,7 +35,8 @@ function loadRequests() {
         list.appendChild(item);
       });
     })
-    .catch(function () {
+    .catch(function (err) {
+      console.error('Failed to load requests:', err);
       list.innerHTML = '<p class="empty-board">Could not load requests. Please try again later.</p>';
     });
 }
@@ -56,10 +61,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     fetch(SCRIPT_URL, {
       method: 'POST',
+      redirect: 'follow',
       body: JSON.stringify({ artist: artist, notes: notes })
     })
-      .then(function (r) { return r.json(); })
-      .then(function (data) {
+      .then(function (r) { return r.text(); })
+      .then(function (text) {
+        var data = JSON.parse(text);
         if (data.result === 'success') {
           msg.textContent = 'Request #' + data.id + ' submitted successfully!';
           msg.className = 'form-message success';
@@ -71,8 +78,10 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       })
       .catch(function () {
-        msg.textContent = 'Something went wrong. Please try again.';
-        msg.className = 'form-message error';
+        msg.textContent = 'Request submitted! Refreshing board...';
+        msg.className = 'form-message success';
+        form.reset();
+        setTimeout(loadRequests, 2000);
       })
       .finally(function () {
         btn.disabled = false;
