@@ -42,25 +42,23 @@
       We will do our best to fulfil your request. Thank you for your support!
     </p>
 
-    <form action="https://formsubmit.co/delightfulmoon27@gmail.com" method="POST" class="request-form">
-      <input type="hidden" name="_subject" value="New Wallpaper Request - DelightfulMoon">
-      <input type="hidden" name="_captcha" value="true">
-      <input type="hidden" name="_next" value="https://delightfulmoon27.github.io/delightfulmoon-site/request.html">
+    <form id="request-form" class="request-form">
       <div class="form-group">
         <label for="artist">Artist Name <span class="required">*</span></label>
-        <input type="text" id="artist" name="Artist Name" required placeholder="e.g. Mewnich, Emi, Bonnie">
+        <input type="text" id="artist" required placeholder="e.g. Mewnich, Emi, Bonnie">
       </div>
       <div class="form-group">
         <label for="note">Additional Notes <span class="optional">(Optional)</span></label>
-        <textarea id="note" name="Notes" rows="4" placeholder="Any specific details or preferences..."></textarea>
+        <textarea id="note" rows="4" placeholder="Any specific details or preferences..."></textarea>
       </div>
       <button type="submit" class="submit-btn">Submit Request</button>
+      <p id="form-message" class="form-message"></p>
     </form>
 
     <div class="request-board">
       <h2>Request Board</h2>
-      <div class="request-list">
-        <p class="empty-board">No requests yet. Be the first to submit one!</p>
+      <div id="request-list" class="request-list">
+        <p class="empty-board">Loading requests...</p>
       </div>
     </div>
   </main>
@@ -72,5 +70,6 @@
     </div>
   </footer>
 
+  <script src="js/request.js"></script>
 </body>
 </html>
