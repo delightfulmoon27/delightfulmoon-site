@@ -394,11 +394,20 @@ body {
   border-color: #c8e6c9;
 }
 
-.request-item input[type="checkbox"] {
-  width: 20px;
-  height: 20px;
-  accent-color: #2A3D44;
+.request-status {
+  font-weight: 700;
+  font-size: 0.85rem;
+  min-width: 80px;
+  text-align: center;
   flex-shrink: 0;
+}
+
+.status-pending {
+  color: #c0392b;
+}
+
+.status-completed {
+  color: #27ae60;
 }
 
 .request-no {

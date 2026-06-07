@@ -17,15 +17,15 @@ function loadRequests() {
         var isCompleted = status === 'completed';
         var item = document.createElement('div');
         item.className = 'request-item' + (isCompleted ? ' completed' : '');
-        var checkbox = isCompleted
-          ? '<input type="checkbox" checked disabled>'
-          : '<input type="checkbox" disabled>';
+        var statusText = isCompleted
+          ? '<span class="request-status status-completed">Completed</span>'
+          : '<span class="request-status status-pending">Pending</span>';
         var link = req.link
           ? '<span class="request-link"><a href="' + req.link + '" target="_blank" rel="noopener">View Wallpaper</a></span>'
           : '';
         var note = req.notes ? '<span class="request-note">' + req.notes + '</span>' : '';
         item.innerHTML =
-          checkbox +
+          statusText +
           '<span class="request-no">#' + req.id + '</span>' +
           '<span class="request-details">' +
             '<span class="request-artist">' + req.artist + '</span>' +
