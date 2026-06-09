@@ -239,6 +239,41 @@ body {
   font-weight: 600;
 }
 
+/* Artist filter */
+.filter-section {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.filter-section label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111;
+  margin-right: 10px;
+}
+
+.filter-section select,
+.filter-section input[list] {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 0.95rem;
+  padding: 10px 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  color: #111;
+  cursor: pointer;
+  min-width: 160px;
+  transition: border-color 0.2s;
+}
+
+.filter-section select:hover,
+.filter-section select:focus,
+.filter-section input[list]:hover,
+.filter-section input[list]:focus {
+  border-color: #2A3D44;
+  outline: none;
+}
+
 /* Show More */
 .show-more-container {
   text-align: center;

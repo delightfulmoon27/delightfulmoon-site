@@ -41,33 +41,55 @@
     <section class="donate-section">
       <a href="https://ezdn.app/delightfulmoon_" target="_blank" rel="noopener" class="donate-btn">Support Me</a>
     </section>
+    <div class="filter-section">
+      <label for="artist-filter">Artist:</label>
+      <input id="artist-filter" list="artist-list" placeholder="All" autocomplete="off">
+      <datalist id="artist-list">
+        <option value="All">
+        <option value="JuneMewnich">
+        <option value="Mewnich">
+      </datalist>
+      <label for="year-filter">Post Year:</label>
+      <select id="year-filter">
+        <option value="All">All</option>
+        <option value="2026">2026</option>
+        <option value="2025">2025</option>
+        <option value="2024">2024</option>
+      </select>
+    </div>
     <div class="tweets-grid">
-      <div class="tweet-wrapper">
+      <div class="tweet-wrapper" data-artist="Mewnich" data-year="2026">
         <blockquote class="twitter-tweet"><a href="https://x.com/delightfulMooN_/status/2034645714417164410"></a></blockquote>
       </div>
-      <div class="tweet-wrapper">
+      <div class="tweet-wrapper" data-artist="JuneMewnich" data-year="2026">
         <blockquote class="twitter-tweet"><a href="https://x.com/delightfulMooN_/status/2024847492295307361"></a></blockquote>
       </div>
-      <div class="tweet-wrapper">
+      <div class="tweet-wrapper" data-artist="Mewnich" data-year="2026">
         <blockquote class="twitter-tweet"><a href="https://x.com/delightfulMooN_/status/2021229027634168206"></a></blockquote>
       </div>
-      <div class="tweet-wrapper">
+      <div class="tweet-wrapper" data-artist="JuneMewnich" data-year="2026">
         <blockquote class="twitter-tweet"><a href="https://x.com/delightfulMooN_/status/2008179869214253368"></a></blockquote>
       </div>
-      <div class="tweet-wrapper">
+      <div class="tweet-wrapper" data-artist="Mewnich" data-year="2025">
         <blockquote class="twitter-tweet"><a href="https://x.com/delightfulMooN_/status/1998757067897868583"></a></blockquote>
       </div>
-      <div class="tweet-wrapper">
+      <div class="tweet-wrapper" data-artist="JuneMewnich" data-year="2025">
         <blockquote class="twitter-tweet"><a href="https://x.com/delightfulMooN_/status/1998756824104018184"></a></blockquote>
       </div>
-      <div class="tweet-wrapper">
+      <div class="tweet-wrapper" data-artist="Mewnich" data-year="2025">
         <blockquote class="twitter-tweet"><a href="https://x.com/delightfulMooN_/status/1874442084842926247"></a></blockquote>
       </div>
-      <div class="tweet-wrapper">
+      <div class="tweet-wrapper" data-artist="Mewnich" data-year="2024">
         <blockquote class="twitter-tweet"><a href="https://x.com/delightfulMooN_/status/1867910280543670737"></a></blockquote>
       </div>
-      <div class="tweet-wrapper">
+      <div class="tweet-wrapper" data-artist="Mewnich" data-year="2024">
         <blockquote class="twitter-tweet"><a href="https://x.com/delightfulMooN_/status/1826618970537144504"></a></blockquote>
+      </div>
+      <div class="tweet-wrapper" data-artist="Mewnich" data-year="2024">
+        <blockquote class="twitter-tweet"><a href="https://x.com/delightfulMooN_/status/1817203664098140486"></a></blockquote>
+      </div>
+      <div class="tweet-wrapper" data-artist="Mewnich" data-year="2024">
+        <blockquote class="twitter-tweet"><a href="https://x.com/delightfulMooN_/status/1799805814317928924"></a></blockquote>
       </div>
     </div>
     <div class="show-more-container">
@@ -83,6 +105,52 @@
   </footer>
 
   <script async src="https://platform.twitter.com/widgets.js"></script>
-  <script src="js/show-more.js"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var BATCH = 6;
+    var allWrappers = Array.prototype.slice.call(document.querySelectorAll('.tweet-wrapper'));
+    var countEl = document.querySelector('.tweet-count');
+    var btn = document.querySelector('.show-more-btn');
+    var artistFilter = document.getElementById('artist-filter');
+    var validArtists = Array.prototype.slice.call(document.querySelectorAll('#artist-list option')).map(function (o) { return o.value; });
+    var yearFilter = document.getElementById('year-filter');
+    var visible = [];
+    var shown = 0;
+
+    function applyFilter() {
+      var artist = artistFilter.value;
+      if (artist === '' || artist === 'All' || validArtists.indexOf(artist) === -1) artist = 'All';
+      var year = yearFilter.value;
+      visible = allWrappers.filter(function (w) {
+        var matchArtist = artist === 'All' || w.getAttribute('data-artist') === artist;
+        var matchYear = year === 'All' || w.getAttribute('data-year') === year;
+        return matchArtist && matchYear;
+      });
+      shown = BATCH;
+      allWrappers.forEach(function (w) { w.style.display = 'none'; });
+      visible.forEach(function (w, i) {
+        w.style.display = i < shown ? '' : 'none';
+      });
+      if (countEl) countEl.textContent = visible.length + ' Wallpaper Set';
+      btn.style.display = shown >= visible.length ? 'none' : '';
+      if (window.twttr && twttr.widgets) twttr.widgets.load();
+    }
+
+    artistFilter.addEventListener('input', applyFilter);
+    yearFilter.addEventListener('change', applyFilter);
+
+    btn.addEventListener('click', function () {
+      var next = shown + BATCH;
+      visible.forEach(function (w, i) {
+        if (i < next) w.style.display = '';
+      });
+      shown = next;
+      if (window.twttr && twttr.widgets) twttr.widgets.load();
+      if (shown >= visible.length) btn.style.display = 'none';
+    });
+
+    applyFilter();
+  });
+  </script>
 </body>
 </html>
