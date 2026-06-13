@@ -11,6 +11,7 @@ function loadRequests() {
         list.innerHTML = '<p class="empty-board">No requests yet. Be the first to submit one!</p>';
         return;
       }
+      requests.sort(function (a, b) { return b.id - a.id; });
       list.innerHTML = '';
       requests.forEach(function (req) {
         var status = (req.status || '').toString().trim().toLowerCase();
