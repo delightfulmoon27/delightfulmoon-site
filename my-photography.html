@@ -54,42 +54,18 @@
       <a href="https://ezdn.app/delightfulmoon_" target="_blank" rel="noopener" class="donate-btn">Support Me</a>
     </section>
     <div class="tweets-grid">
-      <div class="tweet-wrapper" data-artist="" data-year="2022">
-        <blockquote class="twitter-tweet"><a href="https://x.com/delightfulMooN_/status/1489940084464189444"></a></blockquote>
-      </div>
-      <div class="tweet-wrapper" data-artist="" data-year="2022">
-        <blockquote class="twitter-tweet"><a href="https://x.com/delightfulMooN_/status/1599735998812139521"></a></blockquote>
-      </div>
-      <div class="tweet-wrapper" data-artist="" data-year="2023">
-        <blockquote class="twitter-tweet"><a href="https://x.com/delightfulMooN_/status/1710263475199676799"></a></blockquote>
-      </div>
-      <div class="tweet-wrapper" data-artist="" data-year="2023">
-        <blockquote class="twitter-tweet"><a href="https://x.com/delightfulMooN_/status/1710627429113544836"></a></blockquote>
-      </div>
-      <div class="tweet-wrapper" data-artist="" data-year="2023">
-        <blockquote class="twitter-tweet"><a href="https://x.com/delightfulMooN_/status/1728027938124382617"></a></blockquote>
-      </div>
-      <div class="tweet-wrapper" data-artist="" data-year="2023">
-        <blockquote class="twitter-tweet"><a href="https://x.com/delightfulMooN_/status/1730572202813305062"></a></blockquote>
-      </div>
-      <div class="tweet-wrapper" data-artist="" data-year="2023">
-        <blockquote class="twitter-tweet"><a href="https://x.com/delightfulMooN_/status/1735638385891692783"></a></blockquote>
-      </div>
-      <div class="tweet-wrapper" data-artist="" data-year="2024">
-        <blockquote class="twitter-tweet"><a href="https://x.com/delightfulMooN_/status/1784205865316417858"></a></blockquote>
-      </div>
-      <div class="tweet-wrapper" data-artist="" data-year="2025">
-        <blockquote class="twitter-tweet"><a href="https://x.com/delightfulMooN_/status/1874275462601728402"></a></blockquote>
-      </div>
-      <div class="tweet-wrapper" data-artist="" data-year="2024">
-        <blockquote class="twitter-tweet"><a href="https://x.com/delightfulMooN_/status/1806694851876163713"></a></blockquote>
-      </div>
-      <div class="tweet-wrapper" data-artist="" data-year="2024">
-        <blockquote class="twitter-tweet"><a href="https://x.com/delightfulMooN_/status/1809932228388069465"></a></blockquote>
-      </div>
-      <div class="tweet-wrapper" data-artist="" data-year="2024">
-        <blockquote class="twitter-tweet"><a href="https://x.com/delightfulMooN_/status/1820072443895312571"></a></blockquote>
-      </div>
+      <div class="tweet-wrapper" data-artist="" data-year="2022" data-tweet-id="1489940084464189444"></div>
+      <div class="tweet-wrapper" data-artist="" data-year="2022" data-tweet-id="1599735998812139521"></div>
+      <div class="tweet-wrapper" data-artist="" data-year="2023" data-tweet-id="1710263475199676799"></div>
+      <div class="tweet-wrapper" data-artist="" data-year="2023" data-tweet-id="1710627429113544836"></div>
+      <div class="tweet-wrapper" data-artist="" data-year="2023" data-tweet-id="1728027938124382617"></div>
+      <div class="tweet-wrapper" data-artist="" data-year="2023" data-tweet-id="1730572202813305062"></div>
+      <div class="tweet-wrapper" data-artist="" data-year="2023" data-tweet-id="1735638385891692783"></div>
+      <div class="tweet-wrapper" data-artist="" data-year="2024" data-tweet-id="1784205865316417858"></div>
+      <div class="tweet-wrapper" data-artist="" data-year="2025" data-tweet-id="1874275462601728402"></div>
+      <div class="tweet-wrapper" data-artist="" data-year="2024" data-tweet-id="1806694851876163713"></div>
+      <div class="tweet-wrapper" data-artist="" data-year="2024" data-tweet-id="1809932228388069465"></div>
+      <div class="tweet-wrapper" data-artist="" data-year="2024" data-tweet-id="1820072443895312571"></div>
     
     </div>
     <div class="show-more-container">
@@ -113,12 +89,36 @@
     var btn = document.querySelector('.show-more-btn');
     var shown = BATCH;
 
+    function loadTweet(wrapper) {
+      if (wrapper.dataset.loaded) return;
+      var id = wrapper.dataset.tweetId;
+      if (!id) return;
+      var bq = document.createElement('blockquote');
+      bq.className = 'twitter-tweet';
+      var a = document.createElement('a');
+      a.href = 'https://x.com/delightfulMooN_/status/' + id;
+      bq.appendChild(a);
+      wrapper.appendChild(bq);
+      wrapper.dataset.loaded = '1';
+    }
+
+    function loadVisibleTweets() {
+      var needsLoad = false;
+      allWrappers.forEach(function (w, i) {
+        if (i < shown && !w.dataset.loaded) {
+          loadTweet(w);
+          needsLoad = true;
+        }
+      });
+      if (needsLoad && window.twttr && twttr.widgets) twttr.widgets.load();
+    }
+
     allWrappers.forEach(function (w, i) {
       w.style.display = i < shown ? '' : 'none';
     });
     if (countEl) countEl.textContent = allWrappers.length + ' Wallpaper Set';
     btn.style.display = shown >= allWrappers.length ? 'none' : '';
-    if (window.twttr && twttr.widgets) twttr.widgets.load();
+    loadVisibleTweets();
 
     btn.addEventListener('click', function () {
       var next = shown + BATCH;
@@ -126,7 +126,7 @@
         if (i < next) w.style.display = '';
       });
       shown = next;
-      if (window.twttr && twttr.widgets) twttr.widgets.load();
+      loadVisibleTweets();
       if (shown >= allWrappers.length) btn.style.display = 'none';
     });
   });

@@ -72,48 +72,20 @@
       </select>
     </div>
     <div class="tweets-grid">
-      <div class="tweet-wrapper" data-artist="LenaMiu" data-year="2026">
-        <blockquote class="twitter-tweet"><a href="https://x.com/delightfulMooN_/status/2008901970246111449"></a></blockquote>
-      </div>
-      <div class="tweet-wrapper" data-artist="Lingling" data-year="2024">
-        <blockquote class="twitter-tweet"><a href="https://x.com/delightfulMooN_/status/1867910926609047660"></a></blockquote>
-      </div>
-      <div class="tweet-wrapper" data-artist="Orm" data-year="2024">
-        <blockquote class="twitter-tweet"><a href="https://x.com/delightfulMooN_/status/1852692079367147989"></a></blockquote>
-      </div>
-      <div class="tweet-wrapper" data-artist="Lingling" data-year="2024">
-        <blockquote class="twitter-tweet"><a href="https://x.com/delightfulMooN_/status/1850151653183537470"></a></blockquote>
-      </div>
-      <div class="tweet-wrapper" data-artist="LingOrm" data-year="2024">
-        <blockquote class="twitter-tweet"><a href="https://x.com/delightfulMooN_/status/1845087192336695430"></a></blockquote>
-      </div>
-      <div class="tweet-wrapper" data-artist="Lingling" data-year="2024">
-        <blockquote class="twitter-tweet"><a href="https://x.com/delightfulMooN_/status/1840028973465833888"></a></blockquote>
-      </div>
-      <div class="tweet-wrapper" data-artist="LingOrm" data-year="2024">
-        <blockquote class="twitter-tweet"><a href="https://x.com/delightfulMooN_/status/1829534713238942172"></a></blockquote>
-      </div>
-      <div class="tweet-wrapper" data-artist="Yada" data-year="2024">
-        <blockquote class="twitter-tweet"><a href="https://x.com/delightfulMooN_/status/1827339878671045070"></a></blockquote>
-      </div>
-      <div class="tweet-wrapper" data-artist="LingOrm" data-year="2024">
-        <blockquote class="twitter-tweet"><a href="https://x.com/delightfulMooN_/status/1823714259148386546"></a></blockquote>
-      </div>
-      <div class="tweet-wrapper" data-artist="LingOrm" data-year="2024">
-        <blockquote class="twitter-tweet"><a href="https://x.com/delightfulMooN_/status/1820071762471899362"></a></blockquote>
-      </div>
-      <div class="tweet-wrapper" data-artist="Orm" data-year="2024">
-        <blockquote class="twitter-tweet"><a href="https://x.com/delightfulMooN_/status/1820071558788026370"></a></blockquote>
-      </div>
-      <div class="tweet-wrapper" data-artist="Orm" data-year="2024">
-        <blockquote class="twitter-tweet"><a href="https://x.com/delightfulMooN_/status/1817547756946501957"></a></blockquote>
-      </div>
-      <div class="tweet-wrapper" data-artist="Lingling" data-year="2024">
-        <blockquote class="twitter-tweet"><a href="https://x.com/delightfulMooN_/status/1817200181227692071"></a></blockquote>
-      </div>
-      <div class="tweet-wrapper" data-artist="LingOrm" data-year="2024">
-        <blockquote class="twitter-tweet"><a href="https://x.com/delightfulMooN_/status/1812107306467033595"></a></blockquote>
-      </div>
+      <div class="tweet-wrapper" data-artist="LenaMiu" data-year="2026" data-tweet-id="2008901970246111449"></div>
+      <div class="tweet-wrapper" data-artist="Lingling" data-year="2024" data-tweet-id="1867910926609047660"></div>
+      <div class="tweet-wrapper" data-artist="Orm" data-year="2024" data-tweet-id="1852692079367147989"></div>
+      <div class="tweet-wrapper" data-artist="Lingling" data-year="2024" data-tweet-id="1850151653183537470"></div>
+      <div class="tweet-wrapper" data-artist="LingOrm" data-year="2024" data-tweet-id="1845087192336695430"></div>
+      <div class="tweet-wrapper" data-artist="Lingling" data-year="2024" data-tweet-id="1840028973465833888"></div>
+      <div class="tweet-wrapper" data-artist="LingOrm" data-year="2024" data-tweet-id="1829534713238942172"></div>
+      <div class="tweet-wrapper" data-artist="Yada" data-year="2024" data-tweet-id="1827339878671045070"></div>
+      <div class="tweet-wrapper" data-artist="LingOrm" data-year="2024" data-tweet-id="1823714259148386546"></div>
+      <div class="tweet-wrapper" data-artist="LingOrm" data-year="2024" data-tweet-id="1820071762471899362"></div>
+      <div class="tweet-wrapper" data-artist="Orm" data-year="2024" data-tweet-id="1820071558788026370"></div>
+      <div class="tweet-wrapper" data-artist="Orm" data-year="2024" data-tweet-id="1817547756946501957"></div>
+      <div class="tweet-wrapper" data-artist="Lingling" data-year="2024" data-tweet-id="1817200181227692071"></div>
+      <div class="tweet-wrapper" data-artist="LingOrm" data-year="2024" data-tweet-id="1812107306467033595"></div>
     </div>
     <div class="show-more-container">
       <button class="show-more-btn">Show More</button>
@@ -140,6 +112,30 @@
     var visible = [];
     var shown = 0;
 
+    function loadTweet(wrapper) {
+      if (wrapper.dataset.loaded) return;
+      var id = wrapper.dataset.tweetId;
+      if (!id) return;
+      var bq = document.createElement('blockquote');
+      bq.className = 'twitter-tweet';
+      var a = document.createElement('a');
+      a.href = 'https://x.com/delightfulMooN_/status/' + id;
+      bq.appendChild(a);
+      wrapper.appendChild(bq);
+      wrapper.dataset.loaded = '1';
+    }
+
+    function loadVisibleTweets() {
+      var needsLoad = false;
+      visible.forEach(function (w, i) {
+        if (i < shown && !w.dataset.loaded) {
+          loadTweet(w);
+          needsLoad = true;
+        }
+      });
+      if (needsLoad && window.twttr && twttr.widgets) twttr.widgets.load();
+    }
+
     function applyFilter() {
       var artist = artistFilter.value;
       if (artist === '' || artist === 'All' || validArtists.indexOf(artist) === -1) artist = 'All';
@@ -156,7 +152,7 @@
       });
       if (countEl) countEl.textContent = visible.length + ' Wallpaper Set';
       btn.style.display = shown >= visible.length ? 'none' : '';
-      if (window.twttr && twttr.widgets) twttr.widgets.load();
+      loadVisibleTweets();
     }
 
     artistFilter.addEventListener('input', applyFilter);
@@ -168,7 +164,7 @@
         if (i < next) w.style.display = '';
       });
       shown = next;
-      if (window.twttr && twttr.widgets) twttr.widgets.load();
+      loadVisibleTweets();
       if (shown >= visible.length) btn.style.display = 'none';
     });
 
