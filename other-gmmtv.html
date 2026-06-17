@@ -61,27 +61,30 @@
     </section>
     <div class="filter-section">
       <label for="artist-filter">Artist:</label>
-      <select id="artist-filter">
-        <option value="All">All</option>
-        <option value="Ciize">Ciize</option>
-        <option value="Earn">Earn</option>
-        <option value="Film">Film</option>
-        <option value="Fond">Fond</option>
-        <option value="Janhae">Janhae</option>
-        <option value="Jennis Tu">Jennis Tu</option>
-        <option value="June">June</option>
-        <option value="JuneMewnich">JuneMewnich</option>
-        <option value="MBF">MBF</option>
-        <option value="MewnichFond">MewnichFond</option>
-        <option value="Namtan">Namtan</option>
-        <option value="NamtanFilm">NamtanFilm</option>
-        <option value="Paeyah">Paeyah</option>
-        <option value="Piploy">Piploy</option>
-        <option value="View">View</option>
-        <option value="ViewJune">ViewJune</option>
-        <option value="ViewMim">ViewMim</option>
-        <option value="Z Boy Wallpaper">Z Boy Wallpaper</option>
-      </select>
+      <div class="artist-autocomplete">
+        <input type="text" id="artist-filter" value="All" autocomplete="off">
+        <div class="artist-dropdown" id="artist-dropdown">
+          <div class="artist-dropdown-item" data-value="All">All</div>
+          <div class="artist-dropdown-item" data-value="Ciize">Ciize</div>
+          <div class="artist-dropdown-item" data-value="Earn">Earn</div>
+          <div class="artist-dropdown-item" data-value="Film">Film</div>
+          <div class="artist-dropdown-item" data-value="Fond">Fond</div>
+          <div class="artist-dropdown-item" data-value="Janhae">Janhae</div>
+          <div class="artist-dropdown-item" data-value="Jennis Tu">Jennis Tu</div>
+          <div class="artist-dropdown-item" data-value="June">June</div>
+          <div class="artist-dropdown-item" data-value="JuneMewnich">JuneMewnich</div>
+          <div class="artist-dropdown-item" data-value="MBF">MBF</div>
+          <div class="artist-dropdown-item" data-value="MewnichFond">MewnichFond</div>
+          <div class="artist-dropdown-item" data-value="Namtan">Namtan</div>
+          <div class="artist-dropdown-item" data-value="NamtanFilm">NamtanFilm</div>
+          <div class="artist-dropdown-item" data-value="Paeyah">Paeyah</div>
+          <div class="artist-dropdown-item" data-value="Piploy">Piploy</div>
+          <div class="artist-dropdown-item" data-value="View">View</div>
+          <div class="artist-dropdown-item" data-value="ViewJune">ViewJune</div>
+          <div class="artist-dropdown-item" data-value="ViewMim">ViewMim</div>
+          <div class="artist-dropdown-item" data-value="Z Boy Wallpaper">Z Boy Wallpaper</div>
+        </div>
+      </div>
       <label for="year-filter">Post Year:</label>
       <select id="year-filter">
         <option value="All">All</option>
@@ -246,6 +249,8 @@
     var countEl = document.querySelector('.tweet-count');
     var btn = document.querySelector('.show-more-btn');
     var artistFilter = document.getElementById('artist-filter');
+    var artistDropdown = document.getElementById('artist-dropdown');
+    var dropdownItems = Array.prototype.slice.call(artistDropdown.querySelectorAll('.artist-dropdown-item'));
     var yearFilter = document.getElementById('year-filter');
     var visible = [];
     var shown = 0;
@@ -293,7 +298,40 @@
       loadVisibleTweets();
     }
 
-    artistFilter.addEventListener('change', applyFilter);
+    artistFilter.addEventListener('focus', function () {
+      if (artistFilter.value === 'All') artistFilter.value = '';
+      filterDropdown();
+      artistDropdown.classList.add('open');
+      artistFilter.select();
+    });
+
+    artistFilter.addEventListener('input', function () {
+      filterDropdown();
+      artistDropdown.classList.add('open');
+    });
+
+    function filterDropdown() {
+      var q = artistFilter.value.toLowerCase();
+      dropdownItems.forEach(function (item) {
+        var val = item.getAttribute('data-value').toLowerCase();
+        item.style.display = (q === '' || val === 'all' || val.indexOf(q) !== -1) ? '' : 'none';
+      });
+    }
+
+    artistDropdown.addEventListener('click', function (e) {
+      var item = e.target.closest('.artist-dropdown-item');
+      if (!item) return;
+      artistFilter.value = item.getAttribute('data-value');
+      artistDropdown.classList.remove('open');
+      applyFilter();
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.artist-autocomplete')) {
+        artistDropdown.classList.remove('open');
+        if (artistFilter.value === '') artistFilter.value = 'All';
+      }
+    });
     yearFilter.addEventListener('change', applyFilter);
 
     btn.addEventListener('click', function () {

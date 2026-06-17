@@ -61,25 +61,28 @@
     </section>
     <div class="filter-section">
       <label for="artist-filter">Artist:</label>
-      <select id="artist-filter">
-        <option value="All">All</option>
-        <option value="4EVE">4EVE</option>
-        <option value="Aheye">Aheye</option>
-        <option value="Fai">Fai</option>
-        <option value="Freen">Freen</option>
-        <option value="FreenBecky">FreenBecky</option>
-        <option value="Ink">Ink</option>
-        <option value="Jorin">Jorin</option>
-        <option value="Khunpol">Khunpol</option>
-        <option value="LingOrm">LingOrm</option>
-        <option value="LookmheeSonya">LookmheeSonya</option>
-        <option value="Mabelz">Mabelz</option>
-        <option value="Mind">Mind</option>
-        <option value="Punch">Punch</option>
-        <option value="Qiao Yi Yu ">Qiao Yi Yu </option>
-        <option value="Taaom">Taaom</option>
-        <option value="Tad">Tad</option>
-      </select>
+      <div class="artist-autocomplete">
+        <input type="text" id="artist-filter" value="All" autocomplete="off">
+        <div class="artist-dropdown" id="artist-dropdown">
+          <div class="artist-dropdown-item" data-value="All">All</div>
+          <div class="artist-dropdown-item" data-value="4EVE">4EVE</div>
+          <div class="artist-dropdown-item" data-value="Aheye">Aheye</div>
+          <div class="artist-dropdown-item" data-value="Fai">Fai</div>
+          <div class="artist-dropdown-item" data-value="Freen">Freen</div>
+          <div class="artist-dropdown-item" data-value="FreenBecky">FreenBecky</div>
+          <div class="artist-dropdown-item" data-value="Ink">Ink</div>
+          <div class="artist-dropdown-item" data-value="Jorin">Jorin</div>
+          <div class="artist-dropdown-item" data-value="Khunpol">Khunpol</div>
+          <div class="artist-dropdown-item" data-value="LingOrm">LingOrm</div>
+          <div class="artist-dropdown-item" data-value="LookmheeSonya">LookmheeSonya</div>
+          <div class="artist-dropdown-item" data-value="Mabelz">Mabelz</div>
+          <div class="artist-dropdown-item" data-value="Mind">Mind</div>
+          <div class="artist-dropdown-item" data-value="Punch">Punch</div>
+          <div class="artist-dropdown-item" data-value="Qiao Yi Yu ">Qiao Yi Yu </div>
+          <div class="artist-dropdown-item" data-value="Taaom">Taaom</div>
+          <div class="artist-dropdown-item" data-value="Tad">Tad</div>
+        </div>
+      </div>
       <label for="year-filter">Post Year:</label>
       <select id="year-filter">
         <option value="All">All</option>
@@ -156,6 +159,8 @@
     var countEl = document.querySelector('.tweet-count');
     var btn = document.querySelector('.show-more-btn');
     var artistFilter = document.getElementById('artist-filter');
+    var artistDropdown = document.getElementById('artist-dropdown');
+    var dropdownItems = Array.prototype.slice.call(artistDropdown.querySelectorAll('.artist-dropdown-item'));
     var yearFilter = document.getElementById('year-filter');
     var visible = [];
     var shown = 0;
@@ -203,7 +208,40 @@
       loadVisibleTweets();
     }
 
-    artistFilter.addEventListener('change', applyFilter);
+    artistFilter.addEventListener('focus', function () {
+      if (artistFilter.value === 'All') artistFilter.value = '';
+      filterDropdown();
+      artistDropdown.classList.add('open');
+      artistFilter.select();
+    });
+
+    artistFilter.addEventListener('input', function () {
+      filterDropdown();
+      artistDropdown.classList.add('open');
+    });
+
+    function filterDropdown() {
+      var q = artistFilter.value.toLowerCase();
+      dropdownItems.forEach(function (item) {
+        var val = item.getAttribute('data-value').toLowerCase();
+        item.style.display = (q === '' || val === 'all' || val.indexOf(q) !== -1) ? '' : 'none';
+      });
+    }
+
+    artistDropdown.addEventListener('click', function (e) {
+      var item = e.target.closest('.artist-dropdown-item');
+      if (!item) return;
+      artistFilter.value = item.getAttribute('data-value');
+      artistDropdown.classList.remove('open');
+      applyFilter();
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.artist-autocomplete')) {
+        artistDropdown.classList.remove('open');
+        if (artistFilter.value === '') artistFilter.value = 'All';
+      }
+    });
     yearFilter.addEventListener('change', applyFilter);
 
     btn.addEventListener('click', function () {

@@ -252,8 +252,7 @@ body {
   margin-right: 10px;
 }
 
-.filter-section select,
-.filter-section input[list] {
+.filter-section select {
   font-family: 'Fraunces', Georgia, serif;
   font-size: 0.95rem;
   padding: 10px 16px;
@@ -267,11 +266,71 @@ body {
 }
 
 .filter-section select:hover,
-.filter-section select:focus,
-.filter-section input[list]:hover,
-.filter-section input[list]:focus {
+.filter-section select:focus {
   border-color: #2A3D44;
   outline: none;
+}
+
+.artist-autocomplete {
+  position: relative;
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.artist-autocomplete input {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 0.95rem;
+  padding: 10px 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+  color: #111;
+  min-width: 200px;
+  transition: border-color 0.2s;
+}
+
+.artist-autocomplete input:hover,
+.artist-autocomplete input:focus {
+  border-color: #2A3D44;
+  outline: none;
+}
+
+.artist-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  max-height: 240px;
+  overflow-y: auto;
+  z-index: 50;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.artist-dropdown.open {
+  display: block;
+}
+
+.artist-dropdown-item {
+  padding: 8px 16px;
+  cursor: pointer;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 0.9rem;
+  color: #111;
+}
+
+.artist-dropdown-item:hover,
+.artist-dropdown-item.active {
+  background-color: #f0f0f0;
+}
+
+.artist-dropdown-item.selected {
+  font-weight: 600;
+  color: #2A3D44;
 }
 
 /* Show More */

@@ -61,12 +61,15 @@
     </section>
     <div class="filter-section">
       <label for="artist-filter">Artist:</label>
-      <select id="artist-filter">
-        <option value="All">All</option>
-        <option value="Bonnie">Bonnie</option>
-        <option value="Emi">Emi</option>
-        <option value="EmiBonnie">EmiBonnie</option>
-      </select>
+      <div class="artist-autocomplete">
+        <input type="text" id="artist-filter" value="All" autocomplete="off">
+        <div class="artist-dropdown" id="artist-dropdown">
+          <div class="artist-dropdown-item" data-value="All">All</div>
+          <div class="artist-dropdown-item" data-value="Bonnie">Bonnie</div>
+          <div class="artist-dropdown-item" data-value="Emi">Emi</div>
+          <div class="artist-dropdown-item" data-value="EmiBonnie">EmiBonnie</div>
+        </div>
+      </div>
       <label for="year-filter">Post Year:</label>
       <select id="year-filter">
         <option value="All">All</option>
@@ -135,6 +138,8 @@
     var countEl = document.querySelector('.tweet-count');
     var btn = document.querySelector('.show-more-btn');
     var artistFilter = document.getElementById('artist-filter');
+    var artistDropdown = document.getElementById('artist-dropdown');
+    var dropdownItems = Array.prototype.slice.call(artistDropdown.querySelectorAll('.artist-dropdown-item'));
     var yearFilter = document.getElementById('year-filter');
     var visible = [];
     var shown = 0;
@@ -182,7 +187,40 @@
       loadVisibleTweets();
     }
 
-    artistFilter.addEventListener('change', applyFilter);
+    artistFilter.addEventListener('focus', function () {
+      if (artistFilter.value === 'All') artistFilter.value = '';
+      filterDropdown();
+      artistDropdown.classList.add('open');
+      artistFilter.select();
+    });
+
+    artistFilter.addEventListener('input', function () {
+      filterDropdown();
+      artistDropdown.classList.add('open');
+    });
+
+    function filterDropdown() {
+      var q = artistFilter.value.toLowerCase();
+      dropdownItems.forEach(function (item) {
+        var val = item.getAttribute('data-value').toLowerCase();
+        item.style.display = (q === '' || val === 'all' || val.indexOf(q) !== -1) ? '' : 'none';
+      });
+    }
+
+    artistDropdown.addEventListener('click', function (e) {
+      var item = e.target.closest('.artist-dropdown-item');
+      if (!item) return;
+      artistFilter.value = item.getAttribute('data-value');
+      artistDropdown.classList.remove('open');
+      applyFilter();
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.artist-autocomplete')) {
+        artistDropdown.classList.remove('open');
+        if (artistFilter.value === '') artistFilter.value = 'All';
+      }
+    });
     yearFilter.addEventListener('change', applyFilter);
 
     btn.addEventListener('click', function () {

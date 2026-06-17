@@ -61,69 +61,72 @@
     </section>
     <div class="filter-section">
       <label for="artist-filter">Artist:</label>
-      <select id="artist-filter">
-        <option value="All">All</option>
-        <option value="2nd Gen">2nd Gen</option>
-        <option value="4เทพ">4เทพ</option>
-        <option value="7อรชร">7อรชร</option>
-        <option value="Aom Minmin New Phukkhom">Aom Minmin New Phukkhom</option>
-        <option value="Bamboo">Bamboo</option>
-        <option value="Captains">Captains</option>
-        <option value="Charaline">Charaline</option>
-        <option value="Cherprang">Cherprang</option>
-        <option value="Cherprang Nanon">Cherprang Nanon</option>
-        <option value="Earn">Earn</option>
-        <option value="Earth">Earth</option>
-        <option value="Fame">Fame</option>
-        <option value="Fond">Fond</option>
-        <option value="Gygee">Gygee</option>
-        <option value="Hoop">Hoop</option>
-        <option value="Jaa">Jaa</option>
-        <option value="Jennis">Jennis</option>
-        <option value="Jennis Hoop">Jennis Hoop</option>
-        <option value="Jennis Tu">Jennis Tu</option>
-        <option value="Kaew">Kaew</option>
-        <option value="Kaimook">Kaimook</option>
-        <option value="MBF">MBF</option>
-        <option value="MewnichFond">MewnichFond</option>
-        <option value="Micha">Micha</option>
-        <option value="Minmin">Minmin</option>
-        <option value="MoKaew">MoKaew</option>
-        <option value="Mobye">Mobye</option>
-        <option value="Mobye Pupe Kaimook">Mobye Pupe Kaimook</option>
-        <option value="Monet">Monet</option>
-        <option value="Music">Music</option>
-        <option value="Music Fond Champoo Paeyah">Music Fond Champoo Paeyah</option>
-        <option value="Myyu">Myyu</option>
-        <option value="Namneung">Namneung</option>
-        <option value="NamneungAom">NamneungAom</option>
-        <option value="Nana">Nana</option>
-        <option value="Niky">Niky</option>
-        <option value="Niya">Niya</option>
-        <option value="Noey">Noey</option>
-        <option value="Orn">Orn</option>
-        <option value="Orn Fortune">Orn Fortune</option>
-        <option value="Orn Mewnich">Orn Mewnich</option>
-        <option value="OrnNoey">OrnNoey</option>
-        <option value="Paeyah">Paeyah</option>
-        <option value="Palmmy">Palmmy</option>
-        <option value="Pampam">Pampam</option>
-        <option value="Pancake">Pancake</option>
-        <option value="Panda">Panda</option>
-        <option value="Peak">Peak</option>
-        <option value="Phukkhom">Phukkhom</option>
-        <option value="Popper">Popper</option>
-        <option value="Pun">Pun</option>
-        <option value="PunJennis">PunJennis</option>
-        <option value="Pupe">Pupe</option>
-        <option value="Ratah">Ratah</option>
-        <option value="Satchan">Satchan</option>
-        <option value="Tarwaan">Tarwaan</option>
-        <option value="VYRA">VYRA</option>
-        <option value="Wee">Wee</option>
-        <option value="Wee Gygee วีจี้">Wee Gygee วีจี้</option>
-        <option value="Yoghurt">Yoghurt</option>
-      </select>
+      <div class="artist-autocomplete">
+        <input type="text" id="artist-filter" value="All" autocomplete="off">
+        <div class="artist-dropdown" id="artist-dropdown">
+          <div class="artist-dropdown-item" data-value="All">All</div>
+          <div class="artist-dropdown-item" data-value="2nd Gen">2nd Gen</div>
+          <div class="artist-dropdown-item" data-value="4เทพ">4เทพ</div>
+          <div class="artist-dropdown-item" data-value="7อรชร">7อรชร</div>
+          <div class="artist-dropdown-item" data-value="Aom Minmin New Phukkhom">Aom Minmin New Phukkhom</div>
+          <div class="artist-dropdown-item" data-value="Bamboo">Bamboo</div>
+          <div class="artist-dropdown-item" data-value="Captains">Captains</div>
+          <div class="artist-dropdown-item" data-value="Charaline">Charaline</div>
+          <div class="artist-dropdown-item" data-value="Cherprang">Cherprang</div>
+          <div class="artist-dropdown-item" data-value="Cherprang Nanon">Cherprang Nanon</div>
+          <div class="artist-dropdown-item" data-value="Earn">Earn</div>
+          <div class="artist-dropdown-item" data-value="Earth">Earth</div>
+          <div class="artist-dropdown-item" data-value="Fame">Fame</div>
+          <div class="artist-dropdown-item" data-value="Fond">Fond</div>
+          <div class="artist-dropdown-item" data-value="Gygee">Gygee</div>
+          <div class="artist-dropdown-item" data-value="Hoop">Hoop</div>
+          <div class="artist-dropdown-item" data-value="Jaa">Jaa</div>
+          <div class="artist-dropdown-item" data-value="Jennis">Jennis</div>
+          <div class="artist-dropdown-item" data-value="Jennis Hoop">Jennis Hoop</div>
+          <div class="artist-dropdown-item" data-value="Jennis Tu">Jennis Tu</div>
+          <div class="artist-dropdown-item" data-value="Kaew">Kaew</div>
+          <div class="artist-dropdown-item" data-value="Kaimook">Kaimook</div>
+          <div class="artist-dropdown-item" data-value="MBF">MBF</div>
+          <div class="artist-dropdown-item" data-value="MewnichFond">MewnichFond</div>
+          <div class="artist-dropdown-item" data-value="Micha">Micha</div>
+          <div class="artist-dropdown-item" data-value="Minmin">Minmin</div>
+          <div class="artist-dropdown-item" data-value="MoKaew">MoKaew</div>
+          <div class="artist-dropdown-item" data-value="Mobye">Mobye</div>
+          <div class="artist-dropdown-item" data-value="Mobye Pupe Kaimook">Mobye Pupe Kaimook</div>
+          <div class="artist-dropdown-item" data-value="Monet">Monet</div>
+          <div class="artist-dropdown-item" data-value="Music">Music</div>
+          <div class="artist-dropdown-item" data-value="Music Fond Champoo Paeyah">Music Fond Champoo Paeyah</div>
+          <div class="artist-dropdown-item" data-value="Myyu">Myyu</div>
+          <div class="artist-dropdown-item" data-value="Namneung">Namneung</div>
+          <div class="artist-dropdown-item" data-value="NamneungAom">NamneungAom</div>
+          <div class="artist-dropdown-item" data-value="Nana">Nana</div>
+          <div class="artist-dropdown-item" data-value="Niky">Niky</div>
+          <div class="artist-dropdown-item" data-value="Niya">Niya</div>
+          <div class="artist-dropdown-item" data-value="Noey">Noey</div>
+          <div class="artist-dropdown-item" data-value="Orn">Orn</div>
+          <div class="artist-dropdown-item" data-value="Orn Fortune">Orn Fortune</div>
+          <div class="artist-dropdown-item" data-value="Orn Mewnich">Orn Mewnich</div>
+          <div class="artist-dropdown-item" data-value="OrnNoey">OrnNoey</div>
+          <div class="artist-dropdown-item" data-value="Paeyah">Paeyah</div>
+          <div class="artist-dropdown-item" data-value="Palmmy">Palmmy</div>
+          <div class="artist-dropdown-item" data-value="Pampam">Pampam</div>
+          <div class="artist-dropdown-item" data-value="Pancake">Pancake</div>
+          <div class="artist-dropdown-item" data-value="Panda">Panda</div>
+          <div class="artist-dropdown-item" data-value="Peak">Peak</div>
+          <div class="artist-dropdown-item" data-value="Phukkhom">Phukkhom</div>
+          <div class="artist-dropdown-item" data-value="Popper">Popper</div>
+          <div class="artist-dropdown-item" data-value="Pun">Pun</div>
+          <div class="artist-dropdown-item" data-value="PunJennis">PunJennis</div>
+          <div class="artist-dropdown-item" data-value="Pupe">Pupe</div>
+          <div class="artist-dropdown-item" data-value="Ratah">Ratah</div>
+          <div class="artist-dropdown-item" data-value="Satchan">Satchan</div>
+          <div class="artist-dropdown-item" data-value="Tarwaan">Tarwaan</div>
+          <div class="artist-dropdown-item" data-value="VYRA">VYRA</div>
+          <div class="artist-dropdown-item" data-value="Wee">Wee</div>
+          <div class="artist-dropdown-item" data-value="Wee Gygee วีจี้">Wee Gygee วีจี้</div>
+          <div class="artist-dropdown-item" data-value="Yoghurt">Yoghurt</div>
+        </div>
+      </div>
       <label for="year-filter">Post Year:</label>
       <select id="year-filter">
         <option value="All">All</option>
@@ -722,6 +725,8 @@
     var countEl = document.querySelector('.tweet-count');
     var btn = document.querySelector('.show-more-btn');
     var artistFilter = document.getElementById('artist-filter');
+    var artistDropdown = document.getElementById('artist-dropdown');
+    var dropdownItems = Array.prototype.slice.call(artistDropdown.querySelectorAll('.artist-dropdown-item'));
     var yearFilter = document.getElementById('year-filter');
     var visible = [];
     var shown = 0;
@@ -769,7 +774,40 @@
       loadVisibleTweets();
     }
 
-    artistFilter.addEventListener('change', applyFilter);
+    artistFilter.addEventListener('focus', function () {
+      if (artistFilter.value === 'All') artistFilter.value = '';
+      filterDropdown();
+      artistDropdown.classList.add('open');
+      artistFilter.select();
+    });
+
+    artistFilter.addEventListener('input', function () {
+      filterDropdown();
+      artistDropdown.classList.add('open');
+    });
+
+    function filterDropdown() {
+      var q = artistFilter.value.toLowerCase();
+      dropdownItems.forEach(function (item) {
+        var val = item.getAttribute('data-value').toLowerCase();
+        item.style.display = (q === '' || val === 'all' || val.indexOf(q) !== -1) ? '' : 'none';
+      });
+    }
+
+    artistDropdown.addEventListener('click', function (e) {
+      var item = e.target.closest('.artist-dropdown-item');
+      if (!item) return;
+      artistFilter.value = item.getAttribute('data-value');
+      artistDropdown.classList.remove('open');
+      applyFilter();
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.artist-autocomplete')) {
+        artistDropdown.classList.remove('open');
+        if (artistFilter.value === '') artistFilter.value = 'All';
+      }
+    });
     yearFilter.addEventListener('change', applyFilter);
 
     btn.addEventListener('click', function () {
