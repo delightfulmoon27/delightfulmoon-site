@@ -61,26 +61,25 @@
     </section>
     <div class="filter-section">
       <label for="artist-filter">Artist:</label>
-      <input id="artist-filter" list="artist-list" value="All" autocomplete="off">
-      <datalist id="artist-list">
-        <option value="All">
-        <option value="4EVE">
-        <option value="Aheye">
-        <option value="Fai">
-        <option value="Freen">
-        <option value="FreenBecky">
-        <option value="Ink">
-        <option value="Jorin">
-        <option value="Khunpol">
-        <option value="LingOrm">
-        <option value="LookmheeSonya">
-        <option value="Mabelz">
-        <option value="Mind">
-        <option value="Punch">
-        <option value="Qiao Yi Yu ">
-        <option value="Taaom">
-        <option value="Tad">
-      </datalist>
+      <select id="artist-filter">
+        <option value="All">All</option>
+        <option value="4EVE">4EVE</option>
+        <option value="Aheye">Aheye</option>
+        <option value="Fai">Fai</option>
+        <option value="Freen">Freen</option>
+        <option value="FreenBecky">FreenBecky</option>
+        <option value="Ink">Ink</option>
+        <option value="Jorin">Jorin</option>
+        <option value="Khunpol">Khunpol</option>
+        <option value="LingOrm">LingOrm</option>
+        <option value="LookmheeSonya">LookmheeSonya</option>
+        <option value="Mabelz">Mabelz</option>
+        <option value="Mind">Mind</option>
+        <option value="Punch">Punch</option>
+        <option value="Qiao Yi Yu ">Qiao Yi Yu </option>
+        <option value="Taaom">Taaom</option>
+        <option value="Tad">Tad</option>
+      </select>
       <label for="year-filter">Post Year:</label>
       <select id="year-filter">
         <option value="All">All</option>
@@ -157,7 +156,6 @@
     var countEl = document.querySelector('.tweet-count');
     var btn = document.querySelector('.show-more-btn');
     var artistFilter = document.getElementById('artist-filter');
-    var validArtists = Array.prototype.slice.call(document.querySelectorAll('#artist-list option')).map(function (o) { return o.value; });
     var yearFilter = document.getElementById('year-filter');
     var visible = [];
     var shown = 0;
@@ -188,7 +186,7 @@
 
     function applyFilter() {
       var artist = artistFilter.value;
-      if (artist === '' || artist === 'All' || validArtists.indexOf(artist) === -1) artist = 'All';
+      if (artist === '' || artist === 'All') artist = 'All';
       var year = yearFilter.value;
       visible = allWrappers.filter(function (w) {
         var matchArtist = artist === 'All' || w.getAttribute('data-artist') === artist;
@@ -205,7 +203,7 @@
       loadVisibleTweets();
     }
 
-    artistFilter.addEventListener('input', applyFilter);
+    artistFilter.addEventListener('change', applyFilter);
     yearFilter.addEventListener('change', applyFilter);
 
     btn.addEventListener('click', function () {

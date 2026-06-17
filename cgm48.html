@@ -61,30 +61,29 @@
     </section>
     <div class="filter-section">
       <label for="artist-filter">Artist:</label>
-      <input id="artist-filter" list="artist-list" value="All" autocomplete="off">
-      <datalist id="artist-list">
-        <option value="All">
-        <option value="Aom">
-        <option value="Aom Marmink">
-        <option value="Aom Minmin New Phukkhom">
-        <option value="AomMinmin">
-        <option value="Captains">
-        <option value="Champoo">
-        <option value="Fortune">
-        <option value="Jingjing">
-        <option value="Kaning">
-        <option value="Kaning Marmink คมิ้ง">
-        <option value="Kyla">
-        <option value="Marmink">
-        <option value="Meen">
-        <option value="Mei">
-        <option value="Music Fond Champoo Paeyah">
-        <option value="NamneungAom">
-        <option value="Orn Fortune">
-        <option value="Parima">
-        <option value="Punch">
-        <option value="Sita">
-      </datalist>
+      <select id="artist-filter">
+        <option value="All">All</option>
+        <option value="Aom">Aom</option>
+        <option value="Aom Marmink">Aom Marmink</option>
+        <option value="Aom Minmin New Phukkhom">Aom Minmin New Phukkhom</option>
+        <option value="AomMinmin">AomMinmin</option>
+        <option value="Captains">Captains</option>
+        <option value="Champoo">Champoo</option>
+        <option value="Fortune">Fortune</option>
+        <option value="Jingjing">Jingjing</option>
+        <option value="Kaning">Kaning</option>
+        <option value="Kaning Marmink คมิ้ง">Kaning Marmink คมิ้ง</option>
+        <option value="Kyla">Kyla</option>
+        <option value="Marmink">Marmink</option>
+        <option value="Meen">Meen</option>
+        <option value="Mei">Mei</option>
+        <option value="Music Fond Champoo Paeyah">Music Fond Champoo Paeyah</option>
+        <option value="NamneungAom">NamneungAom</option>
+        <option value="Orn Fortune">Orn Fortune</option>
+        <option value="Parima">Parima</option>
+        <option value="Punch">Punch</option>
+        <option value="Sita">Sita</option>
+      </select>
       <label for="year-filter">Post Year:</label>
       <select id="year-filter">
         <option value="All">All</option>
@@ -234,7 +233,6 @@
     var countEl = document.querySelector('.tweet-count');
     var btn = document.querySelector('.show-more-btn');
     var artistFilter = document.getElementById('artist-filter');
-    var validArtists = Array.prototype.slice.call(document.querySelectorAll('#artist-list option')).map(function (o) { return o.value; });
     var yearFilter = document.getElementById('year-filter');
     var visible = [];
     var shown = 0;
@@ -265,7 +263,7 @@
 
     function applyFilter() {
       var artist = artistFilter.value;
-      if (artist === '' || artist === 'All' || validArtists.indexOf(artist) === -1) artist = 'All';
+      if (artist === '' || artist === 'All') artist = 'All';
       var year = yearFilter.value;
       visible = allWrappers.filter(function (w) {
         var matchArtist = artist === 'All' || w.getAttribute('data-artist') === artist;
@@ -282,7 +280,7 @@
       loadVisibleTweets();
     }
 
-    artistFilter.addEventListener('input', applyFilter);
+    artistFilter.addEventListener('change', applyFilter);
     yearFilter.addEventListener('change', applyFilter);
 
     btn.addEventListener('click', function () {

@@ -61,15 +61,14 @@
     </section>
     <div class="filter-section">
       <label for="artist-filter">Artist:</label>
-      <input id="artist-filter" list="artist-list" value="All" autocomplete="off">
-      <datalist id="artist-list">
-        <option value="All">
-        <option value="JuneMewnich">
-        <option value="MBF">
-        <option value="Mewnich">
-        <option value="MewnichFond">
-        <option value="Orn Mewnich">
-      </datalist>
+      <select id="artist-filter">
+        <option value="All">All</option>
+        <option value="JuneMewnich">JuneMewnich</option>
+        <option value="MBF">MBF</option>
+        <option value="Mewnich">Mewnich</option>
+        <option value="MewnichFond">MewnichFond</option>
+        <option value="Orn Mewnich">Orn Mewnich</option>
+      </select>
       <label for="year-filter">Post Year:</label>
       <select id="year-filter">
         <option value="All">All</option>
@@ -210,7 +209,6 @@
     var countEl = document.querySelector('.tweet-count');
     var btn = document.querySelector('.show-more-btn');
     var artistFilter = document.getElementById('artist-filter');
-    var validArtists = Array.prototype.slice.call(document.querySelectorAll('#artist-list option')).map(function (o) { return o.value; });
     var yearFilter = document.getElementById('year-filter');
     var visible = [];
     var shown = 0;
@@ -241,7 +239,7 @@
 
     function applyFilter() {
       var artist = artistFilter.value;
-      if (artist === '' || artist === 'All' || validArtists.indexOf(artist) === -1) artist = 'All';
+      if (artist === '' || artist === 'All') artist = 'All';
       var year = yearFilter.value;
       visible = allWrappers.filter(function (w) {
         var matchArtist = artist === 'All' || w.getAttribute('data-artist') === artist;
@@ -258,7 +256,7 @@
       loadVisibleTweets();
     }
 
-    artistFilter.addEventListener('input', applyFilter);
+    artistFilter.addEventListener('change', applyFilter);
     yearFilter.addEventListener('change', applyFilter);
 
     btn.addEventListener('click', function () {
