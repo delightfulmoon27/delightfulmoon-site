@@ -187,6 +187,7 @@
       var artist = artistFilter.value;
       if (artist === '' || artist === 'All') artist = 'All';
       var year = yearFilter.value;
+      dataLayer.push({ event: 'filter_artist', artist: artist, year: year, page: document.title });
       visible = allWrappers.filter(function (w) {
         var matchArtist = artist === 'All' || w.getAttribute('data-artist') === artist;
         var matchYear = year === 'All' || w.getAttribute('data-year') === year;
