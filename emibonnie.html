@@ -145,6 +145,7 @@
     var yearFilter = document.getElementById('year-filter');
     var visible = [];
     var shown = 0;
+    var userInteracted = false;
 
     function loadTweet(wrapper) {
       if (wrapper.dataset.loaded) return;
@@ -174,7 +175,7 @@
       var artist = artistFilter.value;
       if (artist === '' || artist === 'All') artist = 'All';
       var year = yearFilter.value;
-      dataLayer.push({ event: 'filter_artist', artist: artist, year: year, page: document.title });
+      if (userInteracted) dataLayer.push({ event: 'filter_artist', artist: artist, year: year, page: document.title });
       visible = allWrappers.filter(function (w) {
         var matchArtist = artist === 'All' || w.getAttribute('data-artist') === artist;
         var matchYear = year === 'All' || w.getAttribute('data-year') === year;
@@ -237,6 +238,7 @@
     });
 
     applyFilter();
+    userInteracted = true;
   });
   </script>
 </body>
